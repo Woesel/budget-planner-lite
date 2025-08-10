@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Budget Planner Lite</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>💸 Budget Planner Lite</h1>
+    <div class="actions">
+      <button id="exportBtn" title="Download your data as JSON">Export</button>
+      <label class="import-label">
+        Import
+        <input id="importInput" type="file" accept="application/json" hidden />
+      </label>
+      <button id="resetBtn" class="danger" title="Clear everything">Reset</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Income</h2>
+      <div class="row">
+        <label for="income">Monthly Take‑Home ($)</label>
+        <input id="income" type="number" min="0" step="0.01" placeholder="e.g., 4734" />
+        <button id="saveIncome">Save</button>
+      </div>
+      <p class="hint">Tip: Enter your monthly net pay (after taxes). You can update this anytime.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Add Fixed Expense</h2>
+        <div class="row">
+          <input id="fxName" type="text" placeholder="e.g., Rent" />
+          <input id="fxAmt" type="number" min="0" step="0.01" placeholder="Amount" />
+          <button id="addFixed">Add</button>
+        </div>
+        <ul id="fixedList" class="list"></ul>
+      </div>
+
+      <div class="card">
+        <h2>Add Variable Expense</h2>
+        <div class="row">
+          <input id="varName" type="text" placeholder="e.g., Groceries" />
+          <input id="varAmt" type="number" min="0" step="0.01" placeholder="Budgeted Amount" />
+          <button id="addVar">Add</button>
+        </div>
+        <ul id="varList" class="list"></ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Summary (This Month)</h2>
+      <div class="summary">
+        <div><span>Income</span><strong id="sumIncome">$0</strong></div>
+        <div><span>Fixed</span><strong id="sumFixed">$0</strong></div>
+        <div><span>Variable</span><strong id="sumVar">$0</strong></div>
+        <div><span>Total Expenses</span><strong id="sumTotal">$0</strong></div>
+        <div><span>Leftover / Savings</span><strong id="sumLeftover">$0</strong></div>
+        <div><span>Savings Rate</span><strong id="sumRate">0%</strong></div>
+      </div>
+      <canvas id="pie" height="140"></canvas>
+    </section>
+  </main>
+
+  <footer>
+    <small>Data is saved in your browser (localStorage). No sign‑in required.</small>
+  </footer>
+
+  <template id="listItemTpl">
+    <li>
+      <span class="name"></span>
+      <span class="amount"></span>
+      <div class="item-actions">
+        <button class="edit" title="Edit">✎</button>
+        <button class="delete" title="Delete">🗑</button>
+      </div>
+    </li>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
